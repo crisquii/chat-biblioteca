@@ -1,0 +1,43 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Provide library hours
+  steps:
+  - intent: horarios_biblioteca
+  - action: utter_horarios
+
+- rule: Provide services information
+  steps:
+  - intent: informacion_servicios
+  - action: utter_servicios
+
+- rule: Explain registration process
+  steps:
+  - intent: como_registrarse
+  - action: utter_registro
+
+- rule: Provide fines information
+  steps:
+  - intent: multas_retrasos
+  - action: utter_multas
+
+- rule: Explain room reservation
+  steps:
+  - intent: reservar_sala
+  - action: utter_reservar_sala
+
+- rule: Provide catalog information
+  steps:
+  - intent: catalogo_online
+  - action: utter_catalogo

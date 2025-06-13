@@ -1,0 +1,116 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - buscar_libro
+  - horarios_biblioteca
+  - renovar_prestamo
+  - informacion_servicios
+  - como_registrarse
+  - multas_retrasos
+  - reservar_sala
+  - ubicacion_libro
+  - catalogo_online
+
+entities:
+  - titulo_libro
+  - autor
+  - genero
+  - fecha
+  - numero_carnet
+
+slots:
+  titulo_libro:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: titulo_libro
+  autor:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: autor
+  numero_carnet:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: numero_carnet
+
+responses:
+  utter_greet:
+  - text: "¡Hola! Soy el asistente virtual de la biblioteca. ¿En qué puedo ayudarte hoy?"
+  - text: "¡Bienvenido a la biblioteca! ¿Cómo puedo asistirte?"
+
+  utter_cheer_up:
+  - text: "Aquí tienes algo para animarte:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "¿Te fue útil esa información?"
+
+  utter_happy:
+  - text: "¡Excelente! Me alegra poder ayudarte."
+
+  utter_goodbye:
+  - text: "¡Hasta luego! Que tengas un buen día y disfrutes tu lectura."
+  - text: "¡Nos vemos pronto! La biblioteca siempre está aquí para ti."
+
+  utter_iamabot:
+  - text: "Soy un asistente virtual de la biblioteca, aquí para ayudarte con información sobre libros, horarios y servicios."
+
+  utter_horarios:
+  - text: "Los horarios de la biblioteca son:\n📅 Lunes a Viernes: 8:00 AM - 8:00 PM\n📅 Sábados: 9:00 AM - 5:00 PM\n📅 Domingos: 10:00 AM - 4:00 PM"
+
+  utter_servicios:
+  - text: "Nuestros servicios incluyen:\n📚 Préstamo de libros\n💻 Acceso a computadoras\n📖 Salas de estudio\n📊 Base de datos académica\n🎓 Apoyo para investigación\n📱 WiFi gratuito"
+
+  utter_registro:
+  - text: "Para registrarte necesitas:\n✅ Documento de identidad\n✅ Comprobante de domicilio\n✅ Una fotografía tamaño carnet\n\nPuedes acercarte al mostrador de información para completar tu registro."
+
+  utter_multas:
+  - text: "Información sobre multas:\n💰 $2 por día de retraso\n📅 Renovaciones disponibles antes del vencimiento\n🚫 Suspensión temporal por acumulación de multas\n\n¿Necesitas renovar algún préstamo?"
+
+  utter_reservar_sala:
+  - text: "Para reservar una sala de estudio:\n📞 Llama al (555) 123-4567\n💻 Reserva online en nuestro sitio web\n🏢 Acércate al mostrador de información\n\nLas salas están disponibles por períodos de 2 horas."
+
+  utter_catalogo:
+  - text: "Puedes acceder a nuestro catálogo online en:\n🌐 www.biblioteca.edu/catalogo\n📱 App móvil 'Mi Biblioteca'\n💻 Computadoras públicas en la biblioteca"
+
+  utter_ask_titulo:
+  - text: "¿Cuál es el título del libro que buscas?"
+
+  utter_ask_autor:
+  - text: "¿Podrías decirme el autor del libro?"
+
+  utter_no_encontrado:
+  - text: "Lo siento, no pude encontrar información sobre ese libro. Te recomiendo:\n📞 Consultar con el bibliotecario\n💻 Revisar el catálogo online\n📝 Solicitar una compra si es necesario"
+
+actions:
+  - action_buscar_libro
+  - action_ubicacion_libro
+  - action_renovar_prestamo
+  - utter_greet
+  - utter_cheer_up
+  - utter_did_that_help
+  - utter_happy
+  - utter_goodbye
+  - utter_iamabot
+  - utter_horarios
+  - utter_servicios
+  - utter_registro
+  - utter_multas
+  - utter_reservar_sala
+  - utter_catalogo
+  - utter_ask_titulo
+  - utter_ask_autor
+  - utter_no_encontrado
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

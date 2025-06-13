@@ -1,0 +1,166 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hola
+    - buenos días
+    - buenas tardes
+    - buenas noches
+    - hey
+    - hola, ¿cómo estás?
+    - saludos
+    - qué tal
+    - holi
+
+- intent: goodbye
+  examples: |
+    - chau
+    - hasta luego
+    - adiós
+    - nos vemos
+    - hasta pronto
+    - que tengas buen día
+    - me voy
+    - gracias, adiós
+    - bye
+
+- intent: affirm
+  examples: |
+    - sí
+    - por supuesto
+    - claro
+    - exacto
+    - correcto
+    - está bien
+    - perfecto
+    - de acuerdo
+
+- intent: deny
+  examples: |
+    - no
+    - no gracias
+    - no es correcto
+    - no está bien
+    - negativo
+    - para nada
+
+- intent: mood_great
+  examples: |
+    - perfecto
+    - excelente
+    - genial
+    - fantástico
+    - me siento muy bien
+    - estoy súper bien
+    - maravilloso
+
+- intent: mood_unhappy
+  examples: |
+    - triste
+    - no muy bien
+    - mal
+    - terrible
+    - no me siento bien
+    - estoy molesto
+    - frustrado
+
+- intent: bot_challenge
+  examples: |
+    - eres un bot?
+    - eres un robot?
+    - eres humano?
+    - estoy hablando con un bot?
+    - eres una persona real?
+
+- intent: buscar_libro
+  examples: |
+    - busco un libro
+    - necesito encontrar un libro
+    - ¿tienen el libro [Cien años de soledad](titulo_libro)?
+    - busco libros de [García Márquez](autor)
+    - ¿dónde puedo encontrar [1984](titulo_libro)?
+    - quiero leer algo de [ciencia ficción](genero)
+    - ¿tienen libros de [Stephen King](autor)?
+    - busco [El principito](titulo_libro)
+    - necesito libros sobre [historia](genero)
+    - ¿hay libros de [romance](genero)?
+
+- intent: horarios_biblioteca
+  examples: |
+    - ¿cuáles son los horarios?
+    - ¿a qué hora abren?
+    - ¿hasta qué hora está abierto?
+    - horarios de atención
+    - ¿cuándo puedo venir?
+    - ¿abren los domingos?
+    - ¿qué días están abiertos?
+    - horario de funcionamiento
+
+- intent: renovar_prestamo
+  examples: |
+    - quiero renovar un préstamo
+    - necesito extender el préstamo
+    - ¿cómo renuevo mi libro?
+    - mi libro se vence mañana
+    - renovar préstamo [12345](numero_carnet)
+    - extender fecha de devolución
+    - ¿puedo renovar?
+
+- intent: informacion_servicios
+  examples: |
+    - ¿qué servicios ofrecen?
+    - ¿qué puedo hacer aquí?
+    - servicios de la biblioteca
+    - ¿tienen computadoras?
+    - ¿hay wifi?
+    - ¿ofrecen salas de estudio?
+    - servicios disponibles
+
+- intent: como_registrarse
+  examples: |
+    - ¿cómo me registro?
+    - quiero hacerme socio
+    - ¿cómo obtengo mi carnet?
+    - requisitos para registrarse
+    - ¿qué necesito para inscribirme?
+    - proceso de registro
+    - quiero ser miembro
+
+- intent: multas_retrasos
+  examples: |
+    - ¿cuánto debo de multa?
+    - tengo multas por retraso
+    - ¿cuál es el costo por día de retraso?
+    - información sobre multas
+    - mi libro se retrasó
+    - ¿hay penalidades?
+    - costos por retraso
+
+- intent: reservar_sala
+  examples: |
+    - quiero reservar una sala
+    - ¿cómo reservo una sala de estudio?
+    - necesito una sala privada
+    - reservar espacio de estudio
+    - ¿hay salas disponibles?
+    - reserva de sala grupal
+    - ¿puedo apartar una sala?
+
+- intent: ubicacion_libro
+  examples: |
+    - ¿dónde está el libro [Don Quijote](titulo_libro)?
+    - ubicación de [Borges](autor)
+    - ¿en qué sección encuentro [novelas](genero)?
+    - ¿dónde están los libros de [historia](genero)?
+    - localización de [El amor en los tiempos del cólera](titulo_libro)
+    - ¿en qué piso están los libros de [medicina](genero)?
+
+- intent: catalogo_online
+  examples: |
+    - ¿tienen catálogo online?
+    - ¿cómo accedo al catálogo digital?
+    - búsqueda en línea
+    - catálogo por internet
+    - ¿hay app de la biblioteca?
+    - sistema de búsqueda online

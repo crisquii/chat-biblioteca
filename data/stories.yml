@@ -1,0 +1,79 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: book search flow
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: buscar_libro
+  - action: action_buscar_libro
+  - intent: affirm
+  - action: utter_happy
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: book search with missing info
+  steps:
+  - intent: buscar_libro
+  - action: utter_ask_titulo
+  - intent: buscar_libro
+    entities:
+    - titulo_libro: "Cien años de soledad"
+  - action: action_buscar_libro
+
+- story: book location inquiry
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ubicacion_libro
+  - action: action_ubicacion_libro
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: loan renewal process
+  steps:
+  - intent: renovar_prestamo
+  - action: action_renovar_prestamo
+  - intent: affirm
+  - action: utter_happy
+
+- story: complete library consultation
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: horarios_biblioteca
+  - action: utter_horarios
+  - intent: informacion_servicios
+  - action: utter_servicios
+  - intent: como_registrarse
+  - action: utter_registro
+  - intent: goodbye
+  - action: utter_goodbye
