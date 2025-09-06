@@ -2,78 +2,85 @@ version: "3.1"
 
 stories:
 
-- story: happy path
+- story: greet and ask mall info
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+  - intent: ask_mall_info
+  - action: utter_mall_info
 
-- story: sad path 1
+- story: ask for stores list
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
+  - intent: ask_stores
+  - action: utter_stores_list
 
-- story: sad path 2
+- story: ask store location
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
-
-- story: book search flow
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: buscar_libro
-  - action: action_buscar_libro
-  - intent: affirm
-  - action: utter_happy
-  - intent: goodbye
-  - action: utter_goodbye
-
-- story: book search with missing info
-  steps:
-  - intent: buscar_libro
-  - action: utter_ask_titulo
-  - intent: buscar_libro
+  - intent: ask_store_location
     entities:
-    - titulo_libro: "Cien años de soledad"
-  - action: action_buscar_libro
+    - store_name
+  - action: action_get_store_location
 
-- story: book location inquiry
+- story: ask store hours
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: ubicacion_libro
-  - action: action_ubicacion_libro
+  - intent: ask_store_hours
+    entities:
+    - store_name
+  - action: action_get_store_hours
+
+- story: ask store products
+  steps:
+  - intent: ask_products
+    entities:
+    - store_name
+  - action: action_get_store_products
+
+- story: ask category stores
+  steps:
+  - intent: ask_category_stores
+  - action: action_get_category_stores
+
+- story: ask parking info
+  steps:
+  - intent: ask_parking
+  - action: utter_parking_info
+
+- story: ask services
+  steps:
+  - intent: ask_services
+  - action: utter_services_info
+
+- story: ask events
+  steps:
+  - intent: ask_events
+  - action: utter_events_info
+
+- story: ask contact
+  steps:
+  - intent: ask_contact
+  - action: utter_contact_info
+
+- story: say goodbye
+  steps:
   - intent: goodbye
   - action: utter_goodbye
 
-- story: loan renewal process
+- story: thank you
   steps:
-  - intent: renovar_prestamo
-  - action: action_renovar_prestamo
-  - intent: affirm
-  - action: utter_happy
+  - intent: thankyou
+  - action: utter_thankyou
 
-- story: complete library consultation
+- story: complete conversation flow
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: horarios_biblioteca
-  - action: utter_horarios
-  - intent: informacion_servicios
-  - action: utter_servicios
-  - intent: como_registrarse
-  - action: utter_registro
+  - intent: ask_stores
+  - action: utter_stores_list
+  - intent: ask_store_location
+    entities:
+    - store_name: "Zara"
+  - action: action_get_store_location
+  - intent: thankyou
+  - action: utter_thankyou
   - intent: goodbye
   - action: utter_goodbye

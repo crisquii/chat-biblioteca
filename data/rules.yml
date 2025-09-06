@@ -12,32 +12,37 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
-- rule: Provide library hours
+- rule: Greet user
   steps:
-  - intent: horarios_biblioteca
-  - action: utter_horarios
+  - intent: greet
+  - action: utter_greet
 
-- rule: Provide services information
+- rule: Thank user
   steps:
-  - intent: informacion_servicios
-  - action: utter_servicios
+  - intent: thankyou
+  - action: utter_thankyou
 
-- rule: Explain registration process
+- rule: Mall information
   steps:
-  - intent: como_registrarse
-  - action: utter_registro
+  - intent: ask_mall_info
+  - action: utter_mall_info
 
-- rule: Provide fines information
+- rule: Parking information
   steps:
-  - intent: multas_retrasos
-  - action: utter_multas
+  - intent: ask_parking
+  - action: utter_parking_info
 
-- rule: Explain room reservation
+- rule: Services information
   steps:
-  - intent: reservar_sala
-  - action: utter_reservar_sala
+  - intent: ask_services
+  - action: utter_services_info
 
-- rule: Provide catalog information
+- rule: Events information
   steps:
-  - intent: catalogo_online
-  - action: utter_catalogo
+  - intent: ask_events
+  - action: utter_events_info
+
+- rule: Contact information
+  steps:
+  - intent: ask_contact
+  - action: utter_contact_info

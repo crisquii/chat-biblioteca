@@ -1,4 +1,4 @@
-horaversion: "3.1"
+version: "3.1"
 
 nlu:
 - intent: greet
@@ -6,161 +6,126 @@ nlu:
     - hola
     - buenos días
     - buenas tardes
-    - buenas noches
-    - hey
-    - hola, ¿cómo estás?
+    - hola que tal
     - saludos
-    - qué tal
-    - holi
+    - hey
+    - hi
 
 - intent: goodbye
   examples: |
-    - chau
-    - hasta luego
     - adiós
+    - hasta luego
+    - chao
     - nos vemos
-    - hasta pronto
-    - que tengas buen día
-    - me voy
-    - gracias, adiós
+    - me despido
     - bye
 
-- intent: affirm
+- intent: thankyou
   examples: |
-    - sí
-    - por supuesto
-    - claro
-    - exacto
-    - correcto
-    - está bien
-    - perfecto
-    - de acuerdo
-
-- intent: deny
-  examples: |
-    - no
-    - no gracias
-    - no es correcto
-    - no está bien
-    - negativo
-    - para nada
-
-- intent: mood_great
-  examples: |
-    - perfecto
-    - excelente
-    - genial
-    - fantástico
-    - me siento muy bien
-    - estoy súper bien
-    - maravilloso
-
-- intent: mood_unhappy
-  examples: |
-    - triste
-    - no muy bien
-    - mal
-    - terrible
-    - no me siento bien
-    - estoy molesto
-    - frustrado
+    - gracias
+    - muchas gracias
+    - te agradezco
+    - genial gracias
+    - perfecto gracias
 
 - intent: bot_challenge
   examples: |
     - eres un bot?
     - eres un robot?
     - eres humano?
-    - estoy hablando con un bot?
-    - eres una persona real?
+    - eres una persona?
+    - con quién estoy hablando?
+    - qué eres?
+    - eres artificial?
+    - eres una máquina?
 
-- intent: buscar_libro
+- intent: ask_mall_info
   examples: |
-    - busco un libro
-    - necesito encontrar un libro
-    - ¿tienen el libro [Cien años de soledad](titulo_libro)?
-    - busco libros de [García Márquez](autor)
-    - ¿dónde puedo encontrar [1984](titulo_libro)?
-    - quiero leer algo de [ciencia ficción](genero)
-    - ¿tienen libros de [Stephen King](autor)?
-    - busco [El principito](titulo_libro)
-    - necesito libros sobre [historia](genero)
-    - ¿hay libros de [romance](genero)?
+    - información del centro comercial
+    - horarios del mall
+    - cuáles son los horarios
+    - a qué hora abren
+    - a qué hora cierran
+    - información general
+    - dime sobre el centro comercial
 
-- intent: horarios_biblioteca
+- intent: ask_stores
   examples: |
-    - ¿cuáles son los horarios?
-    - ¿a qué hora abren?
-    - ¿hasta qué hora está abierto?
-    - horarios de atención
-    - ¿cuándo puedo venir?
-    - ¿abren los domingos?
-    - ¿qué días están abiertos?
-    - horario de funcionamiento
+    - qué tiendas hay
+    - cuáles son las tiendas
+    - listado de tiendas
+    - tiendas disponibles
+    - qué locales tienen
+    - marcas disponibles
+    - tiendas del centro comercial
 
-- intent: renovar_prestamo
+- intent: ask_store_location
   examples: |
-    - quiero renovar un préstamo
-    - necesito extender el préstamo
-    - ¿cómo renuevo mi libro?
-    - mi libro se vence mañana
-    - renovar préstamo [12345](numero_carnet)
-    - extender fecha de devolución
-    - ¿puedo renovar?
+    - dónde está [Zara](store_name)
+    - ubicación de [Nike](store_name)
+    - en qué piso está [McDonald's](store_name)
+    - cómo llego a [Adidas](store_name)
+    - dónde encuentro [H&M](store_name)
+    - ubicación [Starbucks](store_name)
 
-- intent: informacion_servicios
+- intent: ask_products
   examples: |
-    - ¿qué servicios ofrecen?
-    - ¿qué puedo hacer aquí?
-    - servicios de la biblioteca
-    - ¿tienen computadoras?
-    - ¿hay wifi?
-    - ¿ofrecen salas de estudio?
+    - qué productos tienen
+    - qué venden en [Zara](store_name)
+    - productos de [Nike](store_name)
+    - qué hay en [McDonald's](store_name)
+    - comida en [Starbucks](store_name)
+    - ropa en [H&M](store_name)
+
+- intent: ask_store_hours
+  examples: |
+    - horarios de [Zara](store_name)
+    - a qué hora abre [Nike](store_name)
+    - horario de [McDonald's](store_name)
+    - cuándo cierra [Starbucks](store_name)
+    - horario de atención [H&M](store_name)
+
+- intent: ask_category_stores
+  examples: |
+    - tiendas de ropa
+    - restaurantes disponibles
+    - tiendas de comida
+    - locales de tecnología
+    - zapaterías
+    - tiendas deportivas
+    - locales de belleza
+    - farmacias
+    - bancos
+
+- intent: ask_parking
+  examples: |
+    - información de parqueadero
+    - dónde parquear
+    - estacionamiento disponible
+    - tarifas de parqueo
+    - parking del centro comercial
+
+- intent: ask_services
+  examples: |
+    - qué servicios tienen
     - servicios disponibles
+    - cajeros automáticos
+    - baños
+    - wifi
+    - servicio al cliente
 
-- intent: como_registrarse
+- intent: ask_events
   examples: |
-    - ¿cómo me registro?
-    - quiero hacerme socio
-    - ¿cómo obtengo mi carnet?
-    - requisitos para registrarse
-    - ¿qué necesito para inscribirme?
-    - proceso de registro
-    - quiero ser miembro
+    - eventos del centro comercial
+    - actividades de hoy
+    - qué eventos hay
+    - promociones actuales
+    - actividades para niños
 
-- intent: multas_retrasos
+- intent: ask_contact
   examples: |
-    - ¿cuánto debo de multa?
-    - tengo multas por retraso
-    - ¿cuál es el costo por día de retraso?
-    - información sobre multas
-    - mi libro se retrasó
-    - ¿hay penalidades?
-    - costos por retraso
-
-- intent: reservar_sala
-  examples: |
-    - quiero reservar una sala
-    - ¿cómo reservo una sala de estudio?
-    - necesito una sala privada
-    - reservar espacio de estudio
-    - ¿hay salas disponibles?
-    - reserva de sala grupal
-    - ¿puedo apartar una sala?
-
-- intent: ubicacion_libro
-  examples: |
-    - ¿dónde está el libro [Don Quijote](titulo_libro)?
-    - ubicación de [Borges](autor)
-    - ¿en qué sección encuentro [novelas](genero)?
-    - ¿dónde están los libros de [historia](genero)?
-    - localización de [El amor en los tiempos del cólera](titulo_libro)
-    - ¿en qué piso están los libros de [medicina](genero)?
-
-- intent: catalogo_online
-  examples: |
-    - ¿tienen catálogo online?
-    - ¿cómo accedo al catálogo digital?
-    - búsqueda en línea
-    - catálogo por internet
-    - ¿hay app de la biblioteca?
-    - sistema de búsqueda online
+    - información de contacto
+    - teléfono del centro comercial
+    - cómo contactarlos
+    - dirección del mall
+    - redes sociales

@@ -1,139 +1,209 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
-
-
-# This is a simple example for a custom action which utters "Hello World!"
-
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet
-import random
 
-class ActionBuscarLibro(Action):
+# Base de datos simulada del centro comercial
+MALL_DATABASE = {
+    "stores": {
+        "zara": {
+            "name": "Zara",
+            "location": "Piso 2, Local 201-205",
+            "category": "moda",
+            "hours": "Lunes a Domingo: 10:00 AM - 10:00 PM",
+            "products": ["ropa femenina", "ropa masculina", "accesorios", "zapatos"],
+            "description": "Moda contemporánea para hombre y mujer"
+        },
+        "nike": {
+            "name": "Nike",
+            "location": "Piso 1, Local 115-118",
+            "category": "deportes",
+            "hours": "Lunes a Domingo: 10:00 AM - 10:00 PM",
+            "products": ["calzado deportivo", "ropa deportiva", "accesorios deportivos"],
+            "description": "Todo para el deporte y estilo de vida activo"
+        },
+        "mcdonald's": {
+            "name": "McDonald's",
+            "location": "Piso 3, Plazoleta de Comidas",
+            "category": "restaurante",
+            "hours": "Lunes a Domingo: 7:00 AM - 11:00 PM",
+            "products": ["hamburguesas", "papas fritas", "nuggets", "ensaladas", "postres"],
+            "description": "Comida rápida internacional"
+        },
+        "starbucks": {
+            "name": "Starbucks",
+            "location": "Piso 1, Local 102 (entrada principal)",
+            "category": "cafetería",
+            "hours": "Lunes a Domingo: 6:00 AM - 11:00 PM",
+            "products": ["café", "frappuccinos", "té", "sandwiches", "pasteles"],
+            "description": "Café de especialidad y bebidas artesanales"
+        },
+        "h&m": {
+            "name": "H&M",
+            "location": "Piso 2, Local 210-215",
+            "category": "moda",
+            "hours": "Lunes a Domingo: 10:00 AM - 10:00 PM",
+            "products": ["ropa casual", "ropa formal", "accesorios", "ropa infantil"],
+            "description": "Moda accesible para toda la familia"
+        },
+        "adidas": {
+            "name": "Adidas",
+            "location": "Piso 1, Local 120-123",
+            "category": "deportes",
+            "hours": "Lunes a Domingo: 10:00 AM - 10:00 PM",
+            "products": ["calzado deportivo", "ropa deportiva", "equipamiento deportivo"],
+            "description": "Marca deportiva líder mundial"
+        },
+        "apple store": {
+            "name": "Apple Store",
+            "location": "Piso 2, Local 220-225",
+            "category": "tecnología",
+            "hours": "Lunes a Domingo: 10:00 AM - 10:00 PM",
+            "products": ["iPhone", "iPad", "MacBook", "Apple Watch", "accesorios"],
+            "description": "Productos y servicios Apple oficiales"
+        }
+    },
+    "categories": {
+        "moda": ["Zara", "H&M", "Forever 21", "Pull & Bear", "Bershka"],
+        "deportes": ["Nike", "Adidas", "Puma", "Under Armour", "Reebok"],
+        "restaurante": ["McDonald's", "KFC", "Subway", "Domino's Pizza", "Crepes & Waffles"],
+        "cafetería": ["Starbucks", "Juan Valdez", "Tostao", "Dunkin' Donuts"],
+        "tecnología": ["Apple Store", "Samsung", "Ktronix", "Alkosto", "Éxito Tecnología"],
+        "belleza": ["Sephora", "MAC", "L'Oréal", "Bodyshop", "Kiko Milano"],
+        "servicios": ["Bancolombia", "Davivienda", "Cruz Verde", "Locatel", "Western Union"]
+    }
+}
+
+class ActionGetStoreLocation(Action):
     def name(self) -> Text:
-        return "action_buscar_libro"
+        return "action_get_store_location"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        titulo = tracker.get_slot("titulo_libro")
-        autor = tracker.get_slot("autor")
+        store_name = tracker.get_slot("store_name")
+        if not store_name:
+            store_name = next(tracker.get_latest_entity_values("store_name"), None)
         
-        # Simulamos una base de datos de libros
-        libros_db = {
-            "cien años de soledad": {
-                "autor": "Gabriel García Márquez",
-                "disponible": True,
-                "ubicacion": "Sección Literatura - Estante L-15",
-                "codigo": "LIT-001"
-            },
-            "1984": {
-                "autor": "George Orwell",
-                "disponible": False,
-                "ubicacion": "Sección Ciencia Ficción - Estante CF-08",
-                "codigo": "CF-045",
-                "fecha_devolucion": "2024-03-15"
-            },
-            "el principito": {
-                "autor": "Antoine de Saint-Exupéry",
-                "disponible": True,
-                "ubicacion": "Sección Infantil - Estante I-03",
-                "codigo": "INF-012"
-            },
-            "don quijote": {
-                "autor": "Miguel de Cervantes",
-                "disponible": True,
-                "ubicacion": "Sección Clásicos - Estante C-02",
-                "codigo": "CLA-001"
-            }
+        if store_name:
+            store_key = store_name.lower()
+            store_info = MALL_DATABASE["stores"].get(store_key)
+            
+            if store_info:
+                message = f"📍 **{store_info['name']}** se encuentra en:\n{store_info['location']}\n\n{store_info['description']}"
+            else:
+                message = f"No encontré la tienda '{store_name}' en nuestro directorio. ¿Podrías verificar el nombre o preguntar por nuestro listado completo de tiendas?"
+        else:
+            message = "¿Qué tienda estás buscando? Puedo ayudarte con la ubicación de cualquiera de nuestras tiendas."
+        
+        dispatcher.utter_message(text=message)
+        return []
+
+class ActionGetStoreHours(Action):
+    def name(self) -> Text:
+        return "action_get_store_hours"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        store_name = tracker.get_slot("store_name")
+        if not store_name:
+            store_name = next(tracker.get_latest_entity_values("store_name"), None)
+        
+        if store_name:
+            store_key = store_name.lower()
+            store_info = MALL_DATABASE["stores"].get(store_key)
+            
+            if store_info:
+                message = f"🕐 **Horarios de {store_info['name']}:**\n{store_info['hours']}\n\nUbicada en: {store_info['location']}"
+            else:
+                message = f"No encontré la tienda '{store_name}'. ¿Podrías verificar el nombre?"
+        else:
+            message = "¿De qué tienda necesitas conocer los horarios?"
+        
+        dispatcher.utter_message(text=message)
+        return []
+
+class ActionGetStoreProducts(Action):
+    def name(self) -> Text:
+        return "action_get_store_products"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        store_name = tracker.get_slot("store_name")
+        if not store_name:
+            store_name = next(tracker.get_latest_entity_values("store_name"), None)
+        
+        if store_name:
+            store_key = store_name.lower()
+            store_info = MALL_DATABASE["stores"].get(store_key)
+            
+            if store_info:
+                products_list = ", ".join(store_info['products'])
+                message = f"🛍️ **{store_info['name']}** ofrece:\n{products_list}\n\n{store_info['description']}\n📍 Ubicación: {store_info['location']}"
+            else:
+                message = f"No encontré información sobre los productos de '{store_name}'. ¿Podrías verificar el nombre de la tienda?"
+        else:
+            message = "¿De qué tienda te gustaría conocer los productos?"
+        
+        dispatcher.utter_message(text=message)
+        return []
+
+class ActionGetCategoryStores(Action):
+    def name(self) -> Text:
+        return "action_get_category_stores"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Extraer la categoría del mensaje del usuario
+        user_message = tracker.latest_message.get('text', '').lower()
+        
+        category_mapping = {
+            'ropa': 'moda',
+            'moda': 'moda',
+            'restaurantes': 'restaurante',
+            'comida': 'restaurante',
+            'restaurant': 'restaurante',
+            'café': 'cafetería',
+            'cafeteria': 'cafetería',
+            'cafetería': 'cafetería',
+            'tecnología': 'tecnología',
+            'tecnologia': 'tecnología',
+            'deportes': 'deportes',
+            'deporte': 'deportes',
+            'deportivas': 'deportes',
+            'belleza': 'belleza',
+            'servicios': 'servicios'
         }
         
-        if titulo:
-            titulo_lower = titulo.lower()
-            if titulo_lower in libros_db:
-                libro = libros_db[titulo_lower]
-                if libro["disponible"]:
-                    mensaje = f"📚 **{titulo.title()}** de {libro['autor']}\n"
-                    mensaje += f"✅ **Disponible**\n"
-                    mensaje += f"📍 Ubicación: {libro['ubicacion']}\n"
-                    mensaje += f"🔢 Código: {libro['codigo']}\n"
-                    mensaje += f"¿Te gustaría que te ayude con algo más?"
-                else:
-                    mensaje = f"📚 **{titulo.title()}** de {libro['autor']}\n"
-                    mensaje += f"❌ **No disponible actualmente**\n"
-                    mensaje += f"📅 Fecha estimada de devolución: {libro['fecha_devolucion']}\n"
-                    mensaje += f"💡 Puedes reservarlo o buscar títulos similares."
-                
-                dispatcher.utter_message(text=mensaje)
-            else:
-                dispatcher.utter_message(text=f"Lo siento, no encontré '{titulo}' en nuestro catálogo. ¿Podrías verificar el título o consultar con el bibliotecario?")
-        elif autor:
-            dispatcher.utter_message(text=f"Buscaré libros de {autor}. Por favor, especifica un título para una búsqueda más precisa.")
-        else:
-            dispatcher.utter_message(text="Para ayudarte mejor, ¿podrías decirme el título del libro que buscas?")
+        category = None
+        for keyword, cat in category_mapping.items():
+            if keyword in user_message:
+                category = cat
+                break
         
-        return []
-
-class ActionUbicacionLibro(Action):
-    def name(self) -> Text:
-        return "action_ubicacion_libro"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        titulo = tracker.get_slot("titulo_libro")
-        autor = tracker.get_slot("autor")
-        
-        if titulo or autor:
-            # Simulamos información de ubicación
-            ubicaciones = [
-                "🏢 **Planta Baja**: Recepción, Hemeroteca, Sección Infantil",
-                "🏢 **Primer Piso**: Literatura, Ciencias Sociales, Referencias",
-                "🏢 **Segundo Piso**: Ciencias Exactas, Medicina, Tecnología",
-                "🏢 **Tercer Piso**: Salas de estudio, Archivo histórico"
-            ]
+        if category and category in MALL_DATABASE["categories"]:
+            stores = MALL_DATABASE["categories"][category]
+            stores_list = "\n• ".join(stores)
             
-            mensaje = "📍 **Mapa de la biblioteca:**\n\n"
-            mensaje += "\n".join(ubicaciones)
-            mensaje += "\n\n💡 También puedes usar los mapas interactivos en cada piso o preguntar en el mostrador de información."
+            category_names = {
+                'moda': 'Tiendas de Moda',
+                'restaurante': 'Restaurantes',
+                'cafetería': 'Cafeterías',
+                'tecnología': 'Tiendas de Tecnología',
+                'deportes': 'Tiendas Deportivas',
+                'belleza': 'Tiendas de Belleza',
+                'servicios': 'Servicios'
+            }
             
-            dispatcher.utter_message(text=mensaje)
+            message = f"🏪 **{category_names[category]}:**\n• {stores_list}\n\n¿Te interesa información específica de alguna de estas tiendas?"
         else:
-            dispatcher.utter_message(text="¿Qué libro específico necesitas ubicar? Dame el título o autor para orientarte mejor.")
+            message = "Nuestras categorías disponibles son:\n🛍️ Moda\n🍔 Restaurantes\n☕ Cafeterías\n💻 Tecnología\n⚽ Deportes\n💄 Belleza\n🏦 Servicios\n\n¿Sobre cuál categoría te gustaría saber?"
         
-        return []
-
-class ActionRenovarPrestamo(Action):
-    def name(self) -> Text:
-        return "action_renovar_prestamo"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        numero_carnet = tracker.get_slot("numero_carnet")
-        
-        if numero_carnet:
-            # Simulamos verificación de préstamos
-            mensaje = f"🔍 Consultando préstamos para carnet {numero_carnet}...\n\n"
-            mensaje += "📚 **Préstamos activos:**\n"
-            mensaje += "• 'Cien años de soledad' - Vence: 2024-03-20 ✅ Renovado por 15 días más\n"
-            mensaje += "• '1984' - Vence: 2024-03-25 ✅ Renovado por 15 días más\n\n"
-            mensaje += "✅ **Renovación completada exitosamente**\n"
-            mensaje += "📧 Recibirás un email de confirmación.\n"
-            mensaje += "⏰ Recuerda devolver antes de las nuevas fechas para evitar multas."
-        else:
-            mensaje = "Para renovar tu préstamo necesito:\n"
-            mensaje += "🎫 Número de carnet de biblioteca\n"
-            mensaje += "📞 También puedes llamar al (555) 123-4567\n"
-            mensaje += "💻 O renovar online en nuestro sitio web\n\n"
-            mensaje += "¿Tienes tu número de carnet?"
-        
-        dispatcher.utter_message(text=mensaje)
+        dispatcher.utter_message(text=message)
         return []

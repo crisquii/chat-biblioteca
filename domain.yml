@@ -3,113 +3,82 @@ version: "3.1"
 intents:
   - greet
   - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
+  - thankyou
   - bot_challenge
-  - buscar_libro
-  - horarios_biblioteca
-  - renovar_prestamo
-  - informacion_servicios
-  - como_registrarse
-  - multas_retrasos
-  - reservar_sala
-  - ubicacion_libro
-  - catalogo_online
+  - ask_mall_info
+  - ask_stores
+  - ask_store_location
+  - ask_products
+  - ask_store_hours
+  - ask_category_stores
+  - ask_parking
+  - ask_services
+  - ask_events
+  - ask_contact
 
 entities:
-  - titulo_libro
-  - autor
-  - genero
-  - fecha
-  - numero_carnet
+  - store_name
+  - store_category
 
 slots:
-  titulo_libro:
+  store_name:
     type: text
+    influence_conversation: false
     mappings:
     - type: from_entity
-      entity: titulo_libro
-  autor:
+      entity: store_name
+  store_category:
     type: text
+    influence_conversation: false
     mappings:
     - type: from_entity
-      entity: autor
-  numero_carnet:
-    type: text
-    mappings:
-    - type: from_entity
-      entity: numero_carnet
+      entity: store_category
 
 responses:
   utter_greet:
-  - text: "¡Hola! Soy el asistente virtual de la biblioteca. ¿En qué puedo ayudarte hoy?"
-  - text: "¡Bienvenido a la biblioteca! ¿Cómo puedo asistirte?"
-
-  utter_cheer_up:
-  - text: "Aquí tienes algo para animarte:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "¿Te fue útil esa información?"
-
-  utter_happy:
-  - text: "¡Excelente! Me alegra poder ayudarte."
+  - text: "¡Hola! Bienvenido al Centro Comercial Plaza Mayor. ¿En qué puedo ayudarte hoy?"
+  - text: "¡Hola! Soy tu asistente virtual del Centro Comercial Plaza Mayor. ¿Qué información necesitas?"
 
   utter_goodbye:
-  - text: "¡Hasta luego! Que tengas un buen día y disfrutes tu lectura."
-  - text: "¡Nos vemos pronto! La biblioteca siempre está aquí para ti."
+  - text: "¡Hasta luego! Esperamos verte pronto en el Centro Comercial Plaza Mayor."
+  - text: "¡Adiós! Que tengas un excelente día. ¡Te esperamos en Plaza Mayor!"
+
+  utter_thankyou:
+  - text: "¡De nada! ¿Hay algo más en lo que pueda ayudarte?"
+  - text: "¡Un placer ayudarte! ¿Necesitas alguna otra información?"
 
   utter_iamabot:
-  - text: "Soy un asistente virtual de la biblioteca, aquí para ayudarte con información sobre libros, horarios y servicios."
+  - text: "Soy un asistente virtual creado para ayudarte con información del Centro Comercial Plaza Mayor. ¿En qué puedo asistirte?"
 
-  utter_horarios:
-  - text: "Los horarios de la biblioteca son:\n📅 Lunes a Viernes: 8:00 AM - 8:00 PM\n📅 Sábados: 9:00 AM - 5:00 PM\n📅 Domingos: 10:00 AM - 4:00 PM"
+  utter_mall_info:
+  - text: "Centro Comercial Plaza Mayor está ubicado en el corazón de la ciudad. Nuestros horarios son:\n- Lunes a Domingo: 10:00 AM - 10:00 PM\n- Restaurantes hasta: 11:00 PM\nContamos con más de 150 tiendas, parqueadero gratuito las primeras 3 horas, y múltiples opciones de entretenimiento."
 
-  utter_servicios:
-  - text: "Nuestros servicios incluyen:\n📚 Préstamo de libros\n💻 Acceso a computadoras\n📖 Salas de estudio\n📊 Base de datos académica\n🎓 Apoyo para investigación\n📱 WiFi gratuito"
+  utter_stores_list:
+  - text: "Tenemos más de 150 tiendas incluyendo:\n🛍️ **Moda:** Zara, H&M, Nike, Adidas, Forever 21\n🍔 **Restaurantes:** McDonald's, Starbucks, Juan Valdez, KFC\n💻 **Tecnología:** Apple Store, Samsung, Ktronix\n💄 **Belleza:** Sephora, MAC, L'Oréal\n🏦 **Servicios:** Bancolombia, Davivienda, farmacia Cruz Verde\n\n¿Te interesa alguna categoría en particular?"
 
-  utter_registro:
-  - text: "Para registrarte necesitas:\n✅ Documento de identidad\n✅ Comprobante de domicilio\n✅ Una fotografía tamaño carnet\n\nPuedes acercarte al mostrador de información para completar tu registro."
+  utter_store_not_found:
+  - text: "No encontré información sobre esa tienda. ¿Podrías verificar el nombre? También puedo ayudarte con una lista completa de nuestras tiendas."
 
-  utter_multas:
-  - text: "Información sobre multas:\n💰 $2 por día de retraso\n📅 Renovaciones disponibles antes del vencimiento\n🚫 Suspensión temporal por acumulación de multas\n\n¿Necesitas renovar algún préstamo?"
+  utter_parking_info:
+  - text: "🚗 **Información de Parqueadero:**\n- Capacidad: 2,000 vehículos\n- Primeras 3 horas: GRATIS\n- Tarifa después: $3,000 por hora\n- Motos: $2,000 todo el día\n- Abierto 24/7\n- Entrada por Calle 100 y Carrera 15"
 
-  utter_reservar_sala:
-  - text: "Para reservar una sala de estudio:\n📞 Llama al (555) 123-4567\n💻 Reserva online en nuestro sitio web\n🏢 Acércate al mostrador de información\n\nLas salas están disponibles por períodos de 2 horas."
+  utter_services_info:
+  - text: "🏢 **Servicios disponibles:**\n- WiFi gratuito (Red: PlazaMayor_Free)\n- Cajeros automáticos en todos los pisos\n- Baños en cada nivel\n- Coches para bebés (préstamo gratuito)\n- Servicio al cliente - Piso 1\n- Guardería - Piso 2\n- Cine y zona de juegos - Piso 4"
 
-  utter_catalogo:
-  - text: "Puedes acceder a nuestro catálogo online en:\n🌐 www.biblioteca.edu/catalogo\n📱 App móvil 'Mi Biblioteca'\n💻 Computadoras públicas en la biblioteca"
+  utter_contact_info:
+  - text: "📞 **Contacto Centro Comercial Plaza Mayor:**\n- Teléfono: (601) 123-4567\n- WhatsApp: +57 301 234 5678\n- Email: info@plazamayor.com\n- Dirección: Calle 100 #15-20, Bogotá\n- Redes sociales: @PlazaMayorCol\n- Web: www.plazamayor.com"
 
-  utter_ask_titulo:
-  - text: "¿Cuál es el título del libro que buscas?"
+  utter_events_info:
+  - text: "🎉 **Eventos actuales:**\n- Descuentos de temporada: hasta 70% OFF\n- Show infantil: Sábados y Domingos 3:00 PM\n- Noches de música en vivo: Viernes 7:00 PM\n- Taller de cocina para niños: Sábados 10:00 AM\n\n¡Síguenos en redes para más eventos!"
 
-  utter_ask_autor:
-  - text: "¿Podrías decirme el autor del libro?"
-
-  utter_no_encontrado:
-  - text: "Lo siento, no pude encontrar información sobre ese libro. Te recomiendo:\n📞 Consultar con el bibliotecario\n💻 Revisar el catálogo online\n📝 Solicitar una compra si es necesario"
+  utter_default:
+  - text: "No estoy seguro de entender tu pregunta. Puedo ayudarte con información sobre:\n- Tiendas y ubicaciones\n- Horarios\n- Productos\n- Servicios del centro comercial\n- Parqueadero\n- Eventos\n\n¿Sobre qué te gustaría saber?"
 
 actions:
-  - action_buscar_libro
-  - action_ubicacion_libro
-  - action_renovar_prestamo
-  - utter_greet
-  - utter_cheer_up
-  - utter_did_that_help
-  - utter_happy
-  - utter_goodbye
-  - utter_iamabot
-  - utter_horarios
-  - utter_servicios
-  - utter_registro
-  - utter_multas
-  - utter_reservar_sala
-  - utter_catalogo
-  - utter_ask_titulo
-  - utter_ask_autor
-  - utter_no_encontrado
+  - action_get_store_location
+  - action_get_store_hours
+  - action_get_store_products
+  - action_get_category_stores
 
 session_config:
   session_expiration_time: 60
